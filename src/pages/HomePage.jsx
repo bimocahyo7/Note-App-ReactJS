@@ -1,41 +1,49 @@
-import "./App.css";
+import React, { useState } from "react";
+import Form from "../components/Form";
+import { DefaultNote, CustomNote } from "../components/Note";
 
-function DefaultNote(props) {
-  return (
-    //Default background color NoteApp (Yellow)
-    <div className="bg-yellow-200 rounded-md p-3 w-72">
-      <h2 className="text-xl font-bold text-slate-800">{props.title}</h2>
-      <h2 className="text-sm font-medium text-gray-700">{props.date}</h2>
-      <h2 className=" text-lg font-medium text-slate-800 pt-6 pb-3 leading-none">{props.text}</h2>
-    </div>
-  );
-}
+const array_notes = [
+  {
+    id: 1,
+    title: "Catatan 1",
+    createdAt: "20 Oktober 2023",
+    body: "Mendesain poster dan banner acara HMTI",
+  },
+  {
+    id: 2,
+    title: "Catatan 2",
+    createdAt: "20 Oktober 2023",
+    body: "Menulis artikel jurnal ilmiah",
+  },
+  {
+    id: 2,
+    title: "Catatan 3",
+    createdAt: "20 Oktober 2023",
+    body: "Belajar kursus online tentang pemrograman",
+  },
+  {
+    id: 2,
+    title: "Catatan 3",
+    createdAt: "20 Oktober 2023",
+    body: "Mengunjungi museum seni lukis dan 3D",
+  },
+  {
+    id: 2,
+    title: "Catatan 5",
+    createdAt: "20 Oktober 2023",
+    body: "Membuat laporan mingguan logbook MSIB",
+  },
+];
 
-function CustomNote(props) {
-  return (
-    //Customize the background color NoteApp from input props.color
-    <div className={`${props.color} rounded-md p-3 w-72`}>
-      <h2 className="text-xl font-bold text-slate-800">{props.title}</h2>
-      <h2 className="text-sm font-medium text-gray-700">{props.date}</h2>
-      <h2 className=" text-lg font-medium text-slate-800 pt-6 pb-3 leading-none">{props.text}</h2>
-    </div>
-  );
-}
-
-function App() {
+const HomePage = () => {
+  const [notes, setNotes] = useState(array_notes);
   const customDate = new Date(2023, 9, 27).toDateString();
   const newDate = new Date().toDateString();
 
   return (
     <div className="container mx-auto">
-      {/* Navbar */}
-      <nav className="bg-slate-700 p-3">
-        <h1 className="text-2xl font-bold text-white">Note App</h1>
-      </nav>
-
-      {/* Container Note */}
+      <Form />
       <div className="m-7 flex flex-wrap justify-center gap-3">
-        {/* Note List */}
         <DefaultNote title="Catatan 1" date={customDate} text="Mendesain poster dan banner acara HMTI"></DefaultNote>
         <CustomNote title="Catatan 2" date={newDate} text="Menulis artikel jurnal ilmiah" color="bg-cyan-300"></CustomNote>
         <CustomNote title="Catatan 3" date={newDate} text="Belajar kursus online tentang pemrograman" color="bg-green-300"></CustomNote>
@@ -47,6 +55,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
-export default App;
+export default HomePage;
