@@ -1,57 +1,74 @@
-import React, { useState } from "react";
-import Form from "../components/Form";
-import { DefaultNote, CustomNote } from "../components/Note";
-
-const array_notes = [
-  {
-    id: 1,
-    title: "Catatan 1",
-    createdAt: "20 Oktober 2023",
-    body: "Mendesain poster dan banner acara HMTI",
-  },
-  {
-    id: 2,
-    title: "Catatan 2",
-    createdAt: "20 Oktober 2023",
-    body: "Menulis artikel jurnal ilmiah",
-  },
-  {
-    id: 2,
-    title: "Catatan 3",
-    createdAt: "20 Oktober 2023",
-    body: "Belajar kursus online tentang pemrograman",
-  },
-  {
-    id: 2,
-    title: "Catatan 3",
-    createdAt: "20 Oktober 2023",
-    body: "Mengunjungi museum seni lukis dan 3D",
-  },
-  {
-    id: 2,
-    title: "Catatan 5",
-    createdAt: "20 Oktober 2023",
-    body: "Membuat laporan mingguan logbook MSIB",
-  },
-];
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { CustomNote } from "../components/Note";
+import { deleteNote, getNotes } from "../utils/local";
 
 const HomePage = () => {
-  const [notes, setNotes] = useState(array_notes);
-  const customDate = new Date(2023, 9, 27).toDateString();
-  const newDate = new Date().toDateString();
+  const navigate = useNavigate();
+  const [notes, setNotes] = useState([]);
+  const [search, setSearch] = useState("");
+
+  //Color Tailwind Class
+  const colors = ["bg-lime-200", "bg-cyan-300", "bg-green-300", "bg-yellow-200", "bg-red-300", "bg-purple-300", "bg-orange-200", "bg-slate-300"];
+
+  const filteredNotes = notes.filter((note) => {
+    return note.body.toLowerCase().includes(search.toLowerCase());
+  });
+
+  const onHandleSearchNote = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const onHandleDeleteNote = (index) => {
+    deleteNote(index);
+    setNotes(getNotes());
+  };
+
+  useEffect(() => {
+    console.log("Update effect!");
+    const data = getNotes();
+    setNotes(data);
+  }, []);
 
   return (
     <div className="container mx-auto">
-      <Form />
+      {/* Form Search and Navigate AddNote */}
+      <div className="container mt-4 flex justify-center">
+        <input
+          value={search}
+          onChange={(event) => {
+            onHandleSearchNote(event);
+          }}
+          type="text"
+          className="form-input px-2 py-2 rounded-md w-1/2"
+          placeholder="Type here to search note by body"
+        />
+        <button
+          onClick={() => {
+            navigate("/add-note");
+          }}
+          className="ml-3 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 border rounded-md">
+          Add Note
+        </button>
+      </div>
+
+      {/* Container Rendering List Data*/}
       <div className="m-7 flex flex-wrap justify-center gap-3">
-        <DefaultNote title="Catatan 1" date={customDate} text="Mendesain poster dan banner acara HMTI"></DefaultNote>
-        <CustomNote title="Catatan 2" date={newDate} text="Menulis artikel jurnal ilmiah" color="bg-cyan-300"></CustomNote>
-        <CustomNote title="Catatan 3" date={newDate} text="Belajar kursus online tentang pemrograman" color="bg-green-300"></CustomNote>
-        <CustomNote title="Catatan 4" date={newDate} text="Mengunjungi museum seni lukis dan 3D" color="bg-red-300"></CustomNote>
-        <CustomNote title="Catatan 5" date={newDate} text="Membuat laporan mingguan logbook MSIB" color="bg-purple-300"></CustomNote>
-        <CustomNote title="Catatan 6" date={newDate} text="Bermain game atau hiburan lainnya" color="bg-orange-200"></CustomNote>
-        <CustomNote title="Catatan 7" date={newDate} text="Membuat vlog tentang hobi atau minat pribadi" color="bg-slate-300"></CustomNote>
-        <CustomNote title="Catatan 8" date={newDate} text="Menyusun rencana perjalanan ke destinasi populer" color="bg-lime-200"></CustomNote>
+        {filteredNotes.map((note, index) => {
+          //Get from array colors
+          const colorClass = `${colors[index % colors.length]}`;
+          return (
+            <CustomNote
+              key={index}
+              title={note.title}
+              createdAt={note.createdAt}
+              body={note.body}
+              color={colorClass}
+              index={index}
+              onDelete={onHandleDeleteNote}
+            />
+          );
+        })}
       </div>
     </div>
   );
