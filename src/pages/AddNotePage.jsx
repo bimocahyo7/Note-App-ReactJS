@@ -21,65 +21,64 @@ const AddNotePage = () => {
   }
 
   return (
-    <div>
-      <div className="container flex justify-center gap-3 bg-violet-200 pt-8 pb-8">
-        <form
-          onSubmit={(event) => {
-            console.log("Berhasil disubmit!");
-            onSubmitHandler(event);
-          }}
-          className="flex w-2/4 flex-col gap-4">
-          <div>
-            <div className="mb-2 block">
-              <Label className="text-base">Nama Catatan:</Label>
-            </div>
-            <TextInput
-              onChange={(event) => {
-                console.log(event.target.value);
-                const value = event.target.value;
-                setNote({ ...note, title: value });
-              }}
-              type="text"
-              placeholder="example: Catatan 1"
-              required
-              shadow
-            />
+    <div className="container min-h-screen flex justify-center gap-3 bg-violet-200 py-8">
+      <form
+        onSubmit={(event) => {
+          console.log("Berhasil disubmit!");
+          onSubmitHandler(event);
+        }}
+        className="flex w-2/4 flex-col gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-center text-violet-500 mb-5">Create New Note</h1>
+          <div className="mb-2 block">
+            <Label className="text-base">Nama Catatan:</Label>
           </div>
-          <div>
-            <div className="mb-2 block">
-              <Label className="text-base">Tanggal:</Label>
-            </div>
-            <TextInput
-              onChange={(event) => {
-                console.log(event.target.value);
-                const value = event.target.value;
-                setNote({ ...note, createdAt: value });
-              }}
-              type="text"
-              required
-              shadow
-            />
+          <TextInput
+            onChange={(event) => {
+              console.log(event.target.value);
+              const value = event.target.value;
+              setNote({ ...note, title: value });
+            }}
+            type="text"
+            placeholder="example: Catatan 1"
+            required
+            shadow
+          />
+        </div>
+        <div>
+          <div className="mb-2 block">
+            <Label className="text-base">Tanggal:</Label>
           </div>
-          <div>
-            <div className="mb-2 block">
-              <Label className="text-base">Isi Catatan:</Label>
-            </div>
-            <TextInput
-              onChange={(event) => {
-                console.log(event.target.value);
-                const value = event.target.value;
-                setNote({ ...note, body: value });
-              }}
-              type="text"
-              required
-              shadow
-            />
+          <TextInput
+            onChange={(event) => {
+              console.log(event.target.value);
+              const value = event.target.value;
+              setNote({ ...note, createdAt: value });
+            }}
+            type="date"
+            required
+            shadow
+          />
+        </div>
+        <div>
+          <div className="mb-2 block">
+            <Label className="text-base">Isi Catatan:</Label>
           </div>
+          <TextInput
+            onChange={(event) => {
+              console.log(event.target.value);
+              const value = event.target.value;
+              setNote({ ...note, body: value });
+            }}
+            type="text"
+            required
+            shadow
+          />
+        </div>
 
-          {/* Conditional Rendering Button Submit */}
-          {note.title && note.createdAt && note.body ? <ButtonDefault>Submit</ButtonDefault> : <ButtonDisabled>Submit</ButtonDisabled>}
-        </form>
-      </div>
+        {/* Conditional Rendering Button Submit */}
+        {note.title && note.createdAt && note.body ? <ButtonDefault>Submit</ButtonDefault> : <ButtonDisabled>Submit</ButtonDisabled>}
+      </form>
     </div>
   );
 };

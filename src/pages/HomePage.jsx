@@ -31,9 +31,9 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto min-h-screen">
       {/* Form Search and Navigate AddNote */}
-      <div className="container mt-4 flex justify-center">
+      <div className="container py-6 flex justify-center">
         <input
           value={search}
           onChange={(event) => {
