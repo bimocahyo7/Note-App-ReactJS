@@ -1,0 +1,92 @@
+import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { login } from "../utils/network";
+import { Label, TextInput } from "flowbite-react";
+import { ButtonDefault, ButtonDisabled } from "../components/Button";
+
+function LoginPage() {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  function onSubmitHandler(event) {
+    event.preventDefault();
+
+    login({ username, password }).then((response) => {
+      console.log(response);
+      if (!response.error) {
+        // Jika berhasil login (username dan password VALID), navigasi ke home page
+        console.log("Berhasil login akun!");
+        alert(`Selamat datang ${username}`);
+        navigate("/");
+      } else {
+        alert("Gagal: Salah Email/Password!");
+      }
+    });
+  }
+
+  const onRegisterHandler = (event) => {
+    event.preventDefault();
+    navigate("/register");
+  };
+
+  return (
+    <div className="container min-h-screen flex justify-center bg-amber-100">
+      <form
+        onSubmit={(event) => {
+          console.log("Berhasil disubmit!");
+          onSubmitHandler(event);
+        }}
+        className="bg-violet-300 shadow-lg rounded-lg flex w-full max-w-md h-fit px-8 py-6 flex-col gap-4 mt-14">
+        <div>
+          <h1 className="text-2xl font-bold text-center  text-slate-700 mb-7">Login User</h1>
+          <div className="mb-2 block">
+            <Label className="text-base text-slate-700">Username:</Label>
+          </div>
+          <TextInput
+            onChange={(event) => {
+              console.log(event.target.value);
+              const value = event.target.value;
+              setUsername(value);
+            }}
+            type="text"
+            required
+            shadow
+          />
+        </div>
+
+        <div>
+          <div className="mb-2 block">
+            <Label className="text-base text-slate-700">Password:</Label>
+          </div>
+          <div className="relative">
+            <TextInput
+              onChange={(event) => {
+                console.log(event.target.value);
+                const value = event.target.value;
+                setPassword(value);
+              }}
+              type="password"
+              required
+              shadow
+            />
+          </div>
+        </div>
+
+        {/* Submit Button */}
+        {username && password ? <ButtonDefault>Submit</ButtonDefault> : <ButtonDisabled>Submit</ButtonDisabled>}
+
+        {/* Navigate Register */}
+        <div>
+          <text className="text-sm">Belum punya akun?</text>
+          <button onClick={onRegisterHandler} className="text-sm pl-1">
+            <u>Register</u>
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+export default LoginPage;
