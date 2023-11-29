@@ -1,10 +1,20 @@
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Navbar";
+import { Navbar, NavbarLogout } from "./components/Navbar";
 import AddNotePage from "./pages/AddNotePage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import { getAccessToken } from "./utils/network";
+
+function IsAuthenticate() {
+  let auth = getAccessToken();
+  if (!auth) {
+    return <Navigate to="/login" />;
+  }
+
+  return <Outlet />;
+}
 
 function App() {
   return (
@@ -14,8 +24,11 @@ function App() {
         <Routes>
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="/add-note" element={<AddNotePage />} />
+
+          <Route element={<IsAuthenticate />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/add-note" element={<AddNotePage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

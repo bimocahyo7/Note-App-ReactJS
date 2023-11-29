@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { register } from "../utils/network";
 import { Label, TextInput } from "flowbite-react";
 import { ButtonDefault, ButtonDisabled } from "../components/Button";
+import { FaUserCircle } from "react-icons/fa";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { Navbar } from "../components/Navbar";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -33,6 +36,7 @@ function RegisterPage() {
 
   return (
     <div className="container min-h-screen flex justify-center bg-amber-100">
+      {/* <Navbar /> */}
       <form
         onSubmit={(event) => {
           console.log("Berhasil disubmit!");
@@ -52,6 +56,7 @@ function RegisterPage() {
             }}
             type="text"
             placeholder="example: bimocahyo"
+            icon={FaUserCircle}
             required
             shadow
           />
@@ -68,6 +73,7 @@ function RegisterPage() {
               setPassword(value);
             }}
             type="password"
+            icon={RiLockPasswordFill}
             required
             shadow
           />
@@ -78,7 +84,7 @@ function RegisterPage() {
 
         {/* Navigate Login */}
         <div>
-          <text className="text-sm">Punya akun?</text>
+          <Label className="text-sm">Punya akun?</Label>
           <button onClick={onLoginHandler} className="text-sm pl-1">
             <u>Login</u>
           </button>

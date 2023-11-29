@@ -8,6 +8,10 @@ function putAccessToken(accessToken) {
   return localStorage.setItem("accessToken", accessToken);
 }
 
+async function deleteAccesToken() {
+  localStorage.clear();
+}
+
 async function fetchWithToken(url, options = {}) {
   return fetch(url, {
     ...options,
@@ -121,4 +125,4 @@ async function deleteNote(id) {
   return { error: false, code: response.status, data: responseJson.data };
 }
 
-export { getAccessToken, putAccessToken, login, register, getUserLogged, addNote, getNotes, getNote, deleteNote };
+export { getAccessToken, putAccessToken, deleteAccesToken, login, register, getUserLogged, addNote, getNotes, getNote, deleteNote };

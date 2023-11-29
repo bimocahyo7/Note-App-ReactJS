@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CustomNote } from "../components/Note";
 import { deleteNote, getNotes } from "../utils/local";
+import { NavbarLogout } from "../components/Navbar";
+import { deleteAccesToken } from "../utils/network";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -22,6 +24,10 @@ const HomePage = () => {
   const onHandleDeleteNote = (index) => {
     deleteNote(index);
     setNotes(getNotes());
+  };
+
+  const handleLogoutButton = () => {
+    deleteAccesToken();
   };
 
   useEffect(() => {

@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../utils/network";
+import { login, putAccessToken } from "../utils/network";
 import { Label, TextInput } from "flowbite-react";
 import { ButtonDefault, ButtonDisabled } from "../components/Button";
+import { FaUserCircle } from "react-icons/fa";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { Navbar } from "../components/Navbar";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -14,11 +17,14 @@ function LoginPage() {
     event.preventDefault();
 
     login({ username, password }).then((response) => {
-      console.log(response);
+      console.log(response.data);
+
       if (!response.error) {
-        // Jika berhasil login (username dan password VALID), navigasi ke home page
-        console.log("Berhasil login akun!");
+        //Simpan data token ke local storage/browser
+        putAccessToken(response?.data?.token);
+
         alert(`Selamat datang ${username}`);
+        // Jika berhasil login (username dan password VALID), navigasi ke home page
         navigate("/");
       } else {
         alert("Gagal: Salah Email/Password!");
@@ -51,6 +57,7 @@ function LoginPage() {
               setUsername(value);
             }}
             type="text"
+            icon={FaUserCircle}
             required
             shadow
           />
@@ -68,6 +75,7 @@ function LoginPage() {
                 setPassword(value);
               }}
               type="password"
+              icon={RiLockPasswordFill}
               required
               shadow
             />
@@ -79,7 +87,7 @@ function LoginPage() {
 
         {/* Navigate Register */}
         <div>
-          <text className="text-sm">Belum punya akun?</text>
+          <Label className="text-sm">Belum punya akun?</Label>
           <button onClick={onRegisterHandler} className="text-sm pl-1">
             <u>Register</u>
           </button>
