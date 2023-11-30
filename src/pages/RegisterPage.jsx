@@ -18,6 +18,7 @@ function RegisterPage() {
 
     register({ username, password }).then((response) => {
       console.log(response);
+
       if (!response.error) {
         alert("Berhasil! Silahkan login");
         console.log(`Berhasil membuat akun baru! username: ${username}, password: ${password} `);

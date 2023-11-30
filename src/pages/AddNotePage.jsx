@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Label, TextInput, Textarea } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { ButtonDefault, ButtonDisabled } from "../components/Button";
-import { addNote } from "../utils/local";
 import { NavbarLogout } from "../components/Navbar";
+import { addNote } from "../utils/network";
 
 const AddNotePage = () => {
   const navigate = useNavigate();
@@ -11,14 +11,22 @@ const AddNotePage = () => {
   //Object Note
   const [note, setNote] = useState({
     title: "",
-    createdAt: "",
+    createdAt: new Date(),
     body: "",
   });
 
-  function onSubmitHandler(event) {
+  async function onSubmitHandler(event) {
     event.preventDefault();
-    addNote(note);
-    navigate("/");
+    const addedNoteResult = await addNote(note);
+    console.log(addedNoteResult);
+
+    if (addedNoteResult) {
+      //Navigasi ke HomePage jika berhasil menambahkan
+      navigate("/");
+    } else {
+      alert("Error menambahkan note!");
+      console.log(`Error: ${addedNoteResult.error}`);
+    }
   }
 
   return (
@@ -49,21 +57,7 @@ const AddNotePage = () => {
               shadow
             />
           </div>
-          <div>
-            <div className="mb-2 block">
-              <Label className="text-base">Tanggal:</Label>
-            </div>
-            <TextInput
-              onChange={(event) => {
-                console.log(event.target.value);
-                const value = event.target.value;
-                setNote({ ...note, createdAt: value });
-              }}
-              type="date"
-              required
-              shadow
-            />
-          </div>
+
           <div>
             <div className="mb-2 block">
               <Label className="text-base">Isi Catatan:</Label>
@@ -82,7 +76,7 @@ const AddNotePage = () => {
           </div>
 
           {/* Conditional Rendering Button Submit */}
-          {note.title && note.createdAt && note.body ? <ButtonDefault>Submit</ButtonDefault> : <ButtonDisabled>Submit</ButtonDisabled>}
+          {note.title && note.body ? <ButtonDefault>Submit</ButtonDefault> : <ButtonDisabled>Submit</ButtonDisabled>}
         </form>
       </div>
     </div>

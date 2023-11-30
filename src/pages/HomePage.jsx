@@ -1,29 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CustomNote } from "../components/Note";
-import { deleteNote, getNotes } from "../utils/local";
+import { deleteAccesToken, deleteNote, getNotes } from "../utils/network";
 import { NavbarLogout } from "../components/Navbar";
-import { deleteAccesToken } from "../utils/network";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
 
-  //Color Tailwind Class
+  //Tailwind Color Class
   const colors = ["bg-lime-200", "bg-cyan-300", "bg-green-300", "bg-yellow-200", "bg-red-300", "bg-purple-300", "bg-orange-200", "bg-slate-300"];
 
+  //Custom Date Format
+  const getFormattedDate = () => {
+    const currentDate = new Date();
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const year = currentDate.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
+
   const filteredNotes = notes.filter((note) => {
-    return note.body.toLowerCase().includes(search.toLowerCase());
+    const inputTextSearch = search.toLowerCase();
+    //Search by Title and Body
+    const isMatch = note.body.toLowerCase().includes(inputTextSearch) || note.title.toLowerCase().includes(inputTextSearch);
+    return isMatch;
   });
 
   const onHandleSearchNote = (event) => {
     setSearch(event.target.value);
   };
 
-  const onHandleDeleteNote = (index) => {
-    deleteNote(index);
-    setNotes(getNotes());
+  const onHandleDeleteNote = async (id) => {
+    try {
+      const { error } = await deleteNote(id);
+
+      if (error) {
+        alert("Error menghapus note!");
+        console.error("Error menghapus note:", error.code);
+      } else {
+        // Tampilkan note terbaru setelah dihapus
+        const updateNote = await getNotes();
+
+        if (!updateNote.error) {
+          setNotes(updateNote.data);
+        } else {
+          console.log("Error mengupdate note:", updateNote.code);
+        }
+      }
+    } catch (error) {
+      console.error("Error menghapus note:", error);
+    }
   };
 
   const handleLogoutButton = () => {
@@ -31,9 +60,18 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    console.log("Update effect!");
-    const data = getNotes();
-    setNotes(data);
+    const fetchData = async () => {
+      const { error, data } = await getNotes();
+
+      if (error) {
+        alert("Error mengambil data dari database!");
+        console.log(`Error: ${error}`);
+      } else {
+        setNotes(data);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -47,7 +85,7 @@ const HomePage = () => {
           }}
           type="text"
           className="form-input px-2 py-2 rounded-md w-1/2"
-          placeholder="Type here to search note by body"
+          placeholder="Type here to search note"
         />
         <button
           onClick={() => {
@@ -63,14 +101,16 @@ const HomePage = () => {
         {filteredNotes.map((note, index) => {
           //Get from array colors
           const colorClass = `${colors[index % colors.length]}`;
+          const date = getFormattedDate();
           return (
             <CustomNote
               key={index}
               title={note.title}
-              createdAt={note.createdAt}
+              createdAt={date}
               body={note.body}
               color={colorClass}
               index={index}
+              id={note.id}
               onDelete={onHandleDeleteNote}
             />
           );

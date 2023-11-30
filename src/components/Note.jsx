@@ -13,7 +13,7 @@ function DefaultNote(props) {
 }
 
 function CustomNote(props) {
-  const { title, createdAt, body, color, index, onDelete } = props;
+  const { title, createdAt, body, color, index, id, onDelete } = props;
 
   return (
     //Customize the background color NoteApp from input props.color
@@ -23,7 +23,7 @@ function CustomNote(props) {
           <h2 className="text-lg font-bold text-slate-800">{title}</h2>
           <h2 className="text-sm font-medium text-gray-700">{createdAt}</h2>
         </div>
-        <button onClick={() => onDelete(index)} type="button" className=" bg-[#f7f7f7] rounded-lg px-2.5 py-1 border-2 border-gray-500">
+        <button onClick={() => onDelete(id)} type="button" className=" bg-[#f7f7f7] rounded-lg px-2.5 py-1 border-2 border-gray-500">
           <FaWindowClose size={20} className="text-slate-600" />
         </button>
       </div>
