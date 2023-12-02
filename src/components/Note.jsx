@@ -13,7 +13,7 @@ function DefaultNote(props) {
 }
 
 function CustomNote(props) {
-  const { title, createdAt, body, color, index, id, onDelete } = props;
+  const { title, createdAt, body, color, id, onDelete } = props;
 
   return (
     //Customize the background color NoteApp from input props.color

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Label, TextInput, Textarea } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { ButtonDefault, ButtonDisabled } from "../components/Button";
-import { Navbar, NavbarLogout } from "../components/Navbar";
+import { NavbarLogout } from "../components/Navbar";
 import { addNote } from "../utils/network";
 import toast from "react-hot-toast";
 

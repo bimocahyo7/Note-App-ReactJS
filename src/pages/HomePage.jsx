@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CustomNote } from "../components/Note";
-import { deleteAccessToken, deleteNote, getNotes } from "../utils/network";
+import { deleteNote, getNotes } from "../utils/network";
 import { NavbarLogout } from "../components/Navbar";
-import { ButtonDefault } from "../components/Button";
-import { Button } from "flowbite-react";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -57,12 +55,6 @@ const HomePage = () => {
     }
   };
 
-  // const handleLogoutButton = (event) => {
-  //   event.preventDefault();
-  //   deleteAccessToken();
-  //   navigate("/login");
-  // };
-
   useEffect(() => {
     const fetchData = async () => {
       const { error, data } = await getNotes();
@@ -80,7 +72,6 @@ const HomePage = () => {
 
   return (
     <div className="container mx-auto min-h-screen">
-      {/* <NavbarLogout onLogout={handleLogoutButton} /> */}
       <NavbarLogout />
 
       {/* Form Search and Navigate AddNote */}

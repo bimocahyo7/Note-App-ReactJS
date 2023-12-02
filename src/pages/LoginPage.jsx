@@ -7,7 +7,7 @@ import { ButtonDefault, ButtonDisabled } from "../components/Button";
 import { FaUserCircle } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Navbar } from "../components/Navbar";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 function LoginPage() {
   const navigate = useNavigate();

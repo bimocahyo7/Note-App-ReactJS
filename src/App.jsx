@@ -1,6 +1,5 @@
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Navbar, NavbarLogout } from "./components/Navbar";
 import AddNotePage from "./pages/AddNotePage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -20,7 +19,6 @@ function IsAuthenticate() {
 function App() {
   return (
     <div className="container mx-auto">
-      {/* <Navbar /> */}
       <BrowserRouter>
         <Toaster />
         <Routes>
