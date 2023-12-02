@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Label, TextInput, Textarea } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { ButtonDefault, ButtonDisabled } from "../components/Button";
-import { NavbarLogout } from "../components/Navbar";
+import { Navbar, NavbarLogout } from "../components/Navbar";
 import { addNote } from "../utils/network";
+import toast from "react-hot-toast";
 
 const AddNotePage = () => {
   const navigate = useNavigate();
@@ -22,16 +23,18 @@ const AddNotePage = () => {
 
     if (addedNoteResult) {
       //Navigasi ke HomePage jika berhasil menambahkan
+      toast.success("Berhasil menambahkan catatan baru!");
       navigate("/");
     } else {
-      alert("Error menambahkan note!");
+      // alert("Error menambahkan note!");
+      toast.success("Error menambahkan note!");
       console.log(`Error: ${addedNoteResult.error}`);
     }
   }
 
   return (
     <div>
-      {/* <NavbarLogout /> */}
+      <NavbarLogout />
       {/* Container Add Note */}
       <div className="container min-h-screen flex justify-center bg-violet-200 py-8">
         <form

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CustomNote } from "../components/Note";
-import { deleteAccesToken, deleteNote, getNotes } from "../utils/network";
+import { deleteAccessToken, deleteNote, getNotes } from "../utils/network";
 import { NavbarLogout } from "../components/Navbar";
+import { ButtonDefault } from "../components/Button";
+import { Button } from "flowbite-react";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -55,9 +57,11 @@ const HomePage = () => {
     }
   };
 
-  const handleLogoutButton = () => {
-    deleteAccesToken();
-  };
+  // const handleLogoutButton = (event) => {
+  //   event.preventDefault();
+  //   deleteAccessToken();
+  //   navigate("/login");
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,6 +80,9 @@ const HomePage = () => {
 
   return (
     <div className="container mx-auto min-h-screen">
+      {/* <NavbarLogout onLogout={handleLogoutButton} /> */}
+      <NavbarLogout />
+
       {/* Form Search and Navigate AddNote */}
       <div className="container py-6 flex justify-center">
         <input

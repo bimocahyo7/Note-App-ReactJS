@@ -1,0 +1,336 @@
+{
+	"info": {
+		"_postman_id": "86903b1b-616d-4140-a8ca-b3a2e5f56a71",
+		"name": "Vocasia Aplikasi Catatan - Bimo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30194791"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"bimocahyo\",\n    \"password\": \"bimocahyo\"\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://165.22.55.164:3000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"165",
+								"22",
+								"55",
+								"164"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"diazagfa\",\n    \"password\": \"vocasia\"\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://165.22.55.164:3000/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"165",
+								"22",
+								"55",
+								"164"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Note",
+			"item": [
+				{
+					"name": "Get All Notes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NWNhMmM3OTA1MWFmYWIyNzBmNDA1ZiIsImlhdCI6MTcwMTUyODk2MywiZXhwIjoxNzAxNTMyNTYzfQ.IQBH421Tb3eSMsuf5eaQf9bD1_LqcmKk7LnQbfuaBDQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://165.22.55.164:3000/api/notes",
+							"protocol": "http",
+							"host": [
+								"165",
+								"22",
+								"55",
+								"164"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Note by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NWNhMmM3OTA1MWFmYWIyNzBmNDA1ZiIsImlhdCI6MTcwMTM0NjA2NywiZXhwIjoxNzAxMzQ5NjY3fQ.NzwKbeGydIlEPE-EkhKAna-ZMUoO0Ul38Elsx0DhEhI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://165.22.55.164:3000/api/notes/:id",
+							"protocol": "http",
+							"host": [
+								"165",
+								"22",
+								"55",
+								"164"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65687cf79051afab270f5b54"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NWNhMmM3OTA1MWFmYWIyNzBmNDA1ZiIsImlhdCI6MTcwMTM0NjA2NywiZXhwIjoxNzAxMzQ5NjY3fQ.NzwKbeGydIlEPE-EkhKAna-ZMUoO0Ul38Elsx0DhEhI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"catatan\",\n    \"body\": \"isi catatan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://165.22.55.164:3000/api/notes/:id",
+							"protocol": "http",
+							"host": [
+								"165",
+								"22",
+								"55",
+								"164"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "655335c7e4439820cb82fd00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Note by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NTMzMzZmYzRkODQ4ZTg2MmE2MjhlMCIsImlhdCI6MTcwMTMzMjgzNywiZXhwIjoxNzAxMzM2NDM3fQ.s7P616osMgg0N1RiYBbwV-ndziZgfbYD2qHlxil-1ic",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"catatan 1\",\n    \"body\": \"isi catatan 1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://165.22.55.164:3000/api/notes/:id",
+							"protocol": "http",
+							"host": [
+								"165",
+								"22",
+								"55",
+								"164"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65533728abae83981ca59bb2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Note by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NWNhMmM3OTA1MWFmYWIyNzBmNDA1ZiIsImlhdCI6MTcwMTM0NjA2NywiZXhwIjoxNzAxMzQ5NjY3fQ.NzwKbeGydIlEPE-EkhKAna-ZMUoO0Ul38Elsx0DhEhI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://165.22.55.164:3000/api/notes/:id",
+							"protocol": "http",
+							"host": [
+								"165",
+								"22",
+								"55",
+								"164"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65687d279051afab270f5b60"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get Own Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NWNhMmM3OTA1MWFmYWIyNzBmNDA1ZiIsImlhdCI6MTcwMTM0NjA2NywiZXhwIjoxNzAxMzQ5NjY3fQ.NzwKbeGydIlEPE-EkhKAna-ZMUoO0Ul38Elsx0DhEhI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://165.22.55.164:3000/api/users/own-profile",
+							"protocol": "http",
+							"host": [
+								"165",
+								"22",
+								"55",
+								"164"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"own-profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

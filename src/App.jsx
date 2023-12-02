@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { getAccessToken } from "./utils/network";
+import { Toaster } from "react-hot-toast";
 
 function IsAuthenticate() {
   let auth = getAccessToken();
@@ -19,8 +20,9 @@ function IsAuthenticate() {
 function App() {
   return (
     <div className="container mx-auto">
-      <Navbar />
+      {/* <Navbar /> */}
       <BrowserRouter>
+        <Toaster />
         <Routes>
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
